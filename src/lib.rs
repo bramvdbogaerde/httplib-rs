@@ -19,8 +19,9 @@ impl QueryParams {
         Self::default()
     }
 
-    pub fn add<K: Into<String>, V: std::fmt::Display>(&mut self, key: K, value: V) {
+    pub fn add<K: Into<String>, V: std::fmt::Display>(&mut self, key: K, value: V) -> &mut Self {
         self.params.insert(key.into(), format!("{}", value));
+        self
     }
 }
 
@@ -84,8 +85,8 @@ impl Client {
 
     pub async fn post<P: AsRef<str>, T: DeserializeOwned, R: Serialize>(
         &mut self,
-        body: Body<R>,
-        query_params: QueryParams,
+        _body: Body<R>,
+        _query_params: QueryParams,
     ) -> Result<T, HttpError> {
         todo!()
     }
